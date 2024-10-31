@@ -67,6 +67,9 @@ export default function CosmicDialog({ randomNumber,show,dialogToggle }) {
             </motion.span>
           </div>
         </div>
+        <DialogDescription className="text-gray-300 mt-4">
+          Note: This file will self-destruct in 24 hours. Be sure to download it before it vanishes into the cosmic void!
+        </DialogDescription>
         <Button 
           onClick={() => dialogToggle()}
           className="relative z-10 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-2 px-4 rounded-full transition-all duration-200 ease-in-out transform hover:scale-105"
