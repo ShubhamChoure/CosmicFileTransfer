@@ -52,7 +52,7 @@ export default function CosmicDialog({ randomNumber,show,dialogToggle }) {
             Cosmic Upload Success!
           </DialogTitle>
           <DialogDescription className="text-gray-300">
-            Your file has been beamed across the digital universe. Here's your cosmic identifier:
+            Your file has been beamed across the digital universe. Here&apos;s your cosmic identifier:
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4 relative z-10">
