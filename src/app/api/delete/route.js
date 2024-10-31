@@ -7,10 +7,10 @@ export async function GET() {
     const client = await clientPromise;
     const db = client.db('cosmicdata');
     const currentTime = new Date();
-    const fiveMinutesAgo = new Date(currentTime.getTime() - 5 * 60 * 1000);
+    const twentyFourHoursAgo = new Date(currentTime.getTime() - 24 * 60 * 60 * 1000);
 
     // Find all files older than 5 minutes
-    const oldFiles = await db.collection('data').find({ uploadDate: { $lt: fiveMinutesAgo } }).toArray();
+    const oldFiles = await db.collection('data').find({ uploadDate: { $lt: twentyFourHoursAgo } }).toArray();
 
     if (oldFiles.length === 0) {
       return NextResponse.json({ success: true, message: 'No files to delete' });
