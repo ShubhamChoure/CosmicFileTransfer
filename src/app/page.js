@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import axios from 'axios'
 import { useDropzone } from 'react-dropzone'
@@ -28,8 +28,9 @@ export default function Component() {
   const [randomNumber, setRandomNumber] = useState(0)
   const [downloadError, setDownloadError] = useState(null)
   const [isDownloading, setIsDownloading] = useState(false)
-  const [downloadingFileName, setDownloadingFileName] = useState("");
-  const [showEmailDialog, setShowEmailDialog] = useState(false);
+  const [downloadingFileName, setDownloadingFileName] = useState("")
+  const [showEmailDialog, setShowEmailDialog] = useState(false)
+
   const onDrop = useCallback(acceptedFiles => {
     setUploadedFile(acceptedFiles[0])
     setUploadComplete(false)
@@ -37,7 +38,7 @@ export default function Component() {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
-  const handleDownload = async (e) => {
+  const handleDownload = useCallback(async (e) => {
     e.preventDefault()
     setDownloadError(null)
     setIsDownloading(true)
@@ -91,22 +92,22 @@ export default function Component() {
       setTimeout(() => {
         setIsDownloading(false)
         setDownloadingFileName('')
-      }, 3000) // Keep the download info visible for 3 seconds after completion
+      }, 3000)
     }
-  }
+  }, [downloadCode])
 
-  const deleteOldFiles = async () => {
+  const deleteOldFiles = useCallback(async () => {
     try {
-      const temp = await axios.get("/api/delete")
+      await axios.get("/api/delete")
     } catch (e) {
       console.log(e)
     }
-  }
+  }, [])
 
-  const handleUpload = async () => {
+  const handleUpload = useCallback(async () => {
     if (uploadedFile) {
       setIsUploading(true)
-      deleteOldFiles()
+      await deleteOldFiles()
       const formData = new FormData()
       formData.append('file', uploadedFile)
 
@@ -123,18 +124,51 @@ export default function Component() {
         setShowDialog(true)
       } catch (error) {
         console.error('Error uploading file:', error)
-        // Display the error to the user
       } finally {
         setIsUploading(false)
       }
     }
-  }
+  }, [uploadedFile, deleteOldFiles])
+
+  const meteors = useMemo(() => [...Array(5)].map((_, i) => (
+    <Meteor key={i} delay={i * 2} />
+  )), [])
+
+  const socialLinks = useMemo(() => (
+    <div className="flex items-center justify-center space-x-4 mb-2">
+      <a
+        href="https://github.com/shubhamchoure"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-gray-400 hover:text-white transition-colors"
+      >
+        <Github className="h-5 w-5" />
+        <span className="sr-only">GitHub</span>
+      </a>
+      <a
+        href="https://www.linkedin.com/in/shubham-choure-01a6b6287/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-gray-400 hover:text-white transition-colors"
+      >
+        <Linkedin className="h-5 w-5" />
+        <span className="sr-only">LinkedIn</span>
+      </a>
+      <button
+        onClick={() => setShowEmailDialog(true)}
+        className="text-gray-400 hover:text-white transition-colors"
+        aria-label="Show email"
+      >
+        <Mail className="h-5 w-5" />
+      </button>
+    </div>
+  ), [])
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black via-purple-900 to-indigo-900 p-4 sm:p-8 relative overflow-hidden">
       {!introComplete && <IntroAnimation onComplete={() => setIntroComplete(true)} />}
       <StarField />
-      {[...Array(5)].map((_, i) => <Meteor key={i} delay={i * 2} />)}
+      {meteors}
       <AnimatePresence>
         {(introComplete) && (
           <motion.main
@@ -295,7 +329,7 @@ export default function Component() {
                         <motion.div
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.3 }}
+                          transition={{ duration: 0.3  }}
                           className="mt-4 text-indigo-400 flex items-center justify-center"
                         >
                           <CheckCircle className="mr-2 h-5 w-5" /> File uploaded successfully!
@@ -316,33 +350,7 @@ export default function Component() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6, duration: 0.5 }}
       >
-        <div className="flex items-center justify-center space-x-4 mb-2">
-          <a
-            href="https://github.com/shubhamchoure"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-400 hover:text-white transition-colors"
-          >
-            <Github className="h-5 w-5" />
-            <span className="sr-only">GitHub</span>
-          </a>
-          <a
-            href="https://www.linkedin.com/in/shubham-choure-01a6b6287/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-400 hover:text-white transition-colors"
-          >
-            <Linkedin className="h-5 w-5" />
-            <span className="sr-only">LinkedIn</span>
-          </a>
-          <button
-            onClick={() => setShowEmailDialog(true)}
-            className="text-gray-400 hover:text-white transition-colors"
-            aria-label="Show email"
-          >
-            <Mail className="h-5 w-5" />
-          </button>
-        </div>
+        {socialLinks}
         <p>&copy; 2024 Cosmic File Transfer. All rights reserved.</p>
       </motion.div>
       <Dialog open={showEmailDialog} onOpenChange={setShowEmailDialog}>
