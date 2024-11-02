@@ -46,52 +46,40 @@ export const IntroAnimation = ({ onComplete }) => {
               exit={{ opacity: 0, y: -50 }}
               transition={{ duration: 1 }}
             >
-              <motion.div className="space-y-4">
                 <motion.h1 
-                  className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tighter mb-4"
+                className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 text-transparent bg-clip-text" 
                   style={{ 
-                    fontFamily: "'Clash Display', sans-serif",
-                    background: "linear-gradient(to right, #6366f1, #a855f7, #ec4899)",
+                  fontFamily: "'Orbitron', sans-serif",
+                  background: "linear-gradient(to right, #60A5FA, #34D399, #A78BFA)",
                     backgroundClip: "text",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
-                    textShadow: "0 0 40px rgba(99, 102, 241, 0.5)"
+                  textShadow: "0 0 30px rgba(96, 165, 250, 0.3)"
                   }}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ 
-                    delay: 0.5, 
-                    duration: 1,
-                    type: "spring",
-                    stiffness: 100 
-                  }}
-                >
-                  Project By
-                </motion.h1>
-                <motion.h2 
-                  className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: 0.5, duration: 1 }}
+              >
+                Project By
+              </motion.h1>
+              <motion.h2 
+                className="text-3xl sm:text-4xl md:text-5xl font-bold text-transparent bg-clip-text" 
                   style={{ 
-                    fontFamily: "'Clash Display', sans-serif",
-                    background: "linear-gradient(to right, #22d3ee, #818cf8, #c084fc)",
+                  fontFamily: "'Orbitron', sans-serif",
+                  background: "linear-gradient(to right, #F472B6, #818CF8, #34D399)",
                     backgroundClip: "text",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
-                    textShadow: "0 0 40px rgba(34, 211, 238, 0.5)"
+                  textShadow: "0 0 30px rgba(244, 114, 182, 0.3)"
                   }}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ 
-                    delay: 1, 
-                    duration: 1,
-                    type: "spring",
-                    stiffness: 100 
-                  }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: 1, duration: 1 }}
                 >
                   Shubham Choure
                 </motion.h2>
-              </motion.div>
             </motion.div>
           </motion.div>
         )}
