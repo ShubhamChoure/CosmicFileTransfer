@@ -30,7 +30,7 @@ export async function GET() {
     }));
 
     // Delete entries from the data collection
-    await db.collection('data').deleteMany({ uploadDate: { $lt: fiveMinutesAgo } });
+    await db.collection('data').deleteMany({ uploadDate: { $lt: twentyFourHoursAgo } });
 
     return NextResponse.json({ success: true, message: 'Old files deleted successfully' });
   } catch (error) {
