@@ -107,7 +107,7 @@ export default function Component() {
   const handleUpload = useCallback(async () => {
     if (uploadedFile) {
       setIsUploading(true)
-      await deleteOldFiles()
+      //await deleteOldFiles()
       const formData = new FormData()
       formData.append('file', uploadedFile)
 
@@ -128,7 +128,7 @@ export default function Component() {
         setIsUploading(false)
       }
     }
-  }, [uploadedFile, deleteOldFiles])
+  }, [uploadedFile])
 
   const meteors = useMemo(() => [...Array(5)].map((_, i) => (
     <Meteor key={i} delay={i * 2} />
