@@ -9,7 +9,7 @@ export async function GET() {
     const currentTime = new Date();
     const twentyFourHoursAgo = new Date(currentTime.getTime() - 24 * 60 * 60 * 1000);
 
-    // Find all files older than 5 minutes
+    // Find all files older than 24 hours
     const oldFiles = await db.collection('data').find({ uploadDate: { $lt: twentyFourHoursAgo } }).toArray();
 
     if (oldFiles.length === 0) {
@@ -42,3 +42,7 @@ export async function GET() {
     }, { status: 500 });
   }
 }
+
+export const config = {
+  maxDuration: 300, // This function can run for up to 5 minutes
+};
