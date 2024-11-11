@@ -1,11 +1,10 @@
-"use client";
-
+"use client"
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { StarField } from "@/components/StarField";
 import { Meteor } from "./Meteor";
 
-export default function Component({ onComplete }) {
+export const IntroAnimation = ({ onComplete }) => {
   const [showContent, setShowContent] = useState(true);
 
   useEffect(() => {
