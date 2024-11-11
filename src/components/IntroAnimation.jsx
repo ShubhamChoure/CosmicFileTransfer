@@ -78,7 +78,7 @@ export const IntroAnimation = ({ onComplete }) => {
                 exit={{ opacity: 0 }}
                 transition={{ delay: 1, duration: 1 }}
                 >
-                  Shubham Chour
+                  Shubham Choure
                 </motion.h2>
             </motion.div>
           </motion.div>
